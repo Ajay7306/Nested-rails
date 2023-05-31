@@ -1,0 +1,56 @@
+
+<%= simple_form_for(@project) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <h3>personal</h3>
+    <div id="personals">
+        <%= f.simple_fields_for :personals do |personal| %>
+          <% render "personal_fields", f: personal %>
+        <% end %>
+    </div>
+        <div class="links">
+          <%= link_to_add_association "Add Personal", f, :personals ,class: "btn btn-outline-primary m-2",id: "myButton"%>
+        </div>
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<script>
+  var num = 2;
+  let btn = document.getElementById('myButton'); 
+  btn.addEventListener("click", render);
+  var container = document.getElementById("personals")
+  function render(){
+    var newDiv = document.createElement("div");
+    var incrementAmount = 1; 
+    num += incrementAmount;
+    newDiv.innerHTML = `<div class="nested-fields" id="nested-fields">
+                            <div class="mb-3 text optional project_personals_address">
+                              <label class="form-label text optional" for="project_personals_attributes_${num}_address">
+                                Address
+                              </label>
+                              <textarea class="form-control text optional " name="project[personals_attributes][${num}][address]" id="project_personals_attributes_${num}_address">
+                              </textarea>
+                            </div>
+                            <div class="mb-3 string optional project_personals_photo">
+                              <label class="form-label string optional" for="project_personals_attributes_${num}_photo">
+                                photo
+                              </label>
+                              <input class="form-control string optional" type="text" name="project[personals_attributes][${num}][photo]" id="project_personals_attributes_${num}_photo"/>
+                            </div>
+                            <input value="false" autocomplete="off" type="hidden" name="project[personals_attributes][${num}][_destroy]" id="project_personals_attributes_${num}__destroy"/>
+                            <a class="btn btn-danger m-2 remove_fields dynamic" href="#">Remove Personal</a>
+                        </div>`
+    console.log(newDiv)
+    container.appendChild(newDiv)
+  }
+
+</script>

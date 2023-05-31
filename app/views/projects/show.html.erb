@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @project %>
+
+<div class="container">
+  <div class="row">
+    <div class="p-2">
+      <%= link_to "Edit this project", edit_project_path(@project), class: "btn btn-outline-primary" %> 
+    </div>
+    <div class="p-2">
+      <%= link_to "Back to projects", projects_path ,class: "btn btn-outline-dark" %> 
+    </div>
+  </div>
+
+  <%= button_to "Destroy this project", @project, method: :delete ,class: "btn btn-danger"%>
+</div>

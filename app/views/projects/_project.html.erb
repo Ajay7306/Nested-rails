@@ -1,0 +1,17 @@
+<div id="<%= dom_id project %>">
+  <p>
+    <strong>Name:</strong>
+    <%= project.name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= project.email %>
+  </p>
+  <h3>personal</h3>
+  <div id="personals">
+      <% project.personals.each do |personal| %>
+        <%= render partial: "personals/project_personal", locals: {personal: personal} %>
+      <% end %>
+  </div>
+</div>
